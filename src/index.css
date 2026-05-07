@@ -6,13 +6,13 @@
   --font-serif: "Cormorant Garamond", serif;
   --font-display: "Playfair Display", serif;
 
-  --color-espresso: #F0F2F5; /* Light text for dark backgrounds */
-  --color-cream: #0A0D12; /* Deepest Obsidian / Navy black for main bg */
-  --color-gold: #CBAA73; /* Vintage Gold */
-  --color-beige: #1A1F2C; /* Dark surface */
-  --color-ink: #FFFFFF; /* Pure white */
-  --color-paper: #131821; /* Card backgrounds */
-  --color-vintage-red: #D25E5E; /* Muted vintage red */
+  --color-espresso: #2A2118; /* Rich Dark Mocha */
+  --color-cream: #F5F2EB; /* Soft Warm Oat / Latte */
+  --color-gold: #C08A53; /* Caramel Gold */
+  --color-beige: #E6DFD3; /* Warm Sand */
+  --color-ink: #1A1410; /* Deepest Espresso */
+  --color-paper: #FCFBF9; /* Crisp Soft White */
+  --color-vintage-red: #A34E4E; /* Muted Brick */
   
   --animate-float: float 6s ease-in-out infinite;
   --animate-page-flip: pageFlip 1s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;

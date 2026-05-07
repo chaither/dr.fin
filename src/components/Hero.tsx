@@ -7,13 +7,18 @@ import featuredImage from '../Pictures/ENGLISH/16279a37-5c09-457e-82f7-37995b9be
 export default function Hero() {
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollY } = useScroll();
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"]
+  });
   
-  const y1 = useTransform(scrollY, [0, 500], [0, 200]);
-  const y2 = useTransform(scrollY, [0, 500], [0, -150]);
-  const y3 = useTransform(scrollY, [0, 500], [0, 100]);
-  const rotate = useTransform(scrollY, [0, 500], [0, 15]);
-  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, 300]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, -200]);
+  const y3 = useTransform(scrollYProgress, [0, 1], [0, 150]);
+  const textY = useTransform(scrollYProgress, [0, 1], [0, 150]);
+  const imgY = useTransform(scrollYProgress, [0, 1], [0, 50]);
+  const rotate = useTransform(scrollYProgress, [0, 1], [0, 20]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   return (
     <section ref={containerRef} className="relative min-h-[90vh] flex items-center overflow-hidden bg-cream px-6 py-20 lg:px-20">
@@ -32,7 +37,7 @@ export default function Hero() {
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          style={{ opacity }}
+          style={{ opacity, y: textY }}
         >
           <div className="flex items-center gap-2 mb-6">
             <div className="h-[1px] w-12 bg-gold" />
@@ -81,6 +86,7 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.8, y: 50 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.2 }}
+            style={{ y: imgY }}
             className="relative z-10 perspective-1000"
           >
             <div className="w-[300px] lg:w-[400px] aspect-[3/4] bg-espresso rounded-r-xl overflow-hidden book-shadow mx-auto relative group cursor-pointer transition-transform duration-500 hover:scale-[1.02]">

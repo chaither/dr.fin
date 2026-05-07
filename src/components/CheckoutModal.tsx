@@ -19,6 +19,10 @@ export default function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
   
   const [step, setStep] = useState<CheckoutStep>('shipping');
   const [isProcessing, setIsProcessing] = useState(false);
+  const [processingStatus, setProcessingStatus] = useState('');
+  
+  const tax = total * 0.08; // 8% simulated tax
+  const finalTotal = total + tax;
   
   const [shippingDetails, setShippingDetails] = useState({
     fullName: '',
@@ -43,11 +47,39 @@ export default function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
     if (step === 'payment') setStep('shipping');
   };
 
+  const handleCardNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/\D/g, '').slice(0, 16);
+    const formatted = value.replace(/(\d{4})/g, '$1 ').trim();
+    setPaymentDetails({ ...paymentDetails, cardNumber: formatted });
+  };
+
+  const handleExpiryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value.replace(/\D/g, '');
+    if (value.length >= 2) {
+      value = value.slice(0, 2) + '/' + value.slice(2, 4);
+    }
+    setPaymentDetails({ ...paymentDetails, expiry: value });
+  };
+
+  const handleCvcChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/\D/g, '').slice(0, 4);
+    setPaymentDetails({ ...paymentDetails, cvc: value });
+  };
+
   const handlePlaceOrder = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!user || items.length === 0) return;
     
     setIsProcessing(true);
+    setProcessingStatus('Connecting to secure gateway...');
+    
+    // Simulate real bank processing delay and steps
+    await new Promise(resolve => setTimeout(resolve, 800));
+    setProcessingStatus('Verifying payment details...');
+    await new Promise(resolve => setTimeout(resolve, 1200));
+    setProcessingStatus('Authorizing payment...');
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
     try {
       await addDoc(collection(db, 'orders'), {
         userId: user.uid,
@@ -57,8 +89,11 @@ export default function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
           price: item.book?.price,
           quantity: item.quantity
         })),
-        total,
+        subtotal: total,
+        tax,
+        total: finalTotal,
         shipping: shippingDetails,
+        paymentMethod: 'Credit Card ending in ' + paymentDetails.cardNumber.slice(-4),
         status: 'processing',
         createdAt: serverTimestamp()
       });
@@ -245,7 +280,7 @@ export default function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
                             className={inputClass}
                             maxLength={19}
                             value={paymentDetails.cardNumber}
-                            onChange={(e) => setPaymentDetails({...paymentDetails, cardNumber: e.target.value})}
+                            onChange={handleCardNumberChange}
                           />
                           <div className="grid grid-cols-2 gap-6">
                             <input 
@@ -255,7 +290,7 @@ export default function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
                               className={inputClass}
                               maxLength={5}
                               value={paymentDetails.expiry}
-                              onChange={(e) => setPaymentDetails({...paymentDetails, expiry: e.target.value})}
+                              onChange={handleExpiryChange}
                             />
                             <input 
                               required
@@ -264,7 +299,7 @@ export default function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
                               className={inputClass}
                               maxLength={4}
                               value={paymentDetails.cvc}
-                              onChange={(e) => setPaymentDetails({...paymentDetails, cvc: e.target.value})}
+                              onChange={handleCvcChange}
                             />
                           </div>
                           <input 
@@ -280,9 +315,23 @@ export default function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
                         <button 
                           type="submit"
                           disabled={isProcessing}
-                          className="w-full bg-gold text-espresso py-5 hover:bg-gold/90 transition-all flex items-center justify-center gap-3 font-bold uppercase tracking-widest text-xs disabled:opacity-50"
+                          className="w-full bg-gold text-espresso py-5 hover:bg-gold/90 transition-all flex flex-col items-center justify-center gap-1 font-bold uppercase tracking-widest text-xs disabled:opacity-50 min-h-[64px]"
                         >
-                          {isProcessing ? 'Processing Order...' : `Pay $${total.toFixed(2)}`}
+                          {isProcessing ? (
+                            <>
+                              <span className="flex items-center gap-2">
+                                <motion.div
+                                  animate={{ rotate: 360 }}
+                                  transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                                  className="w-4 h-4 border-2 border-espresso/20 border-t-espresso rounded-full"
+                                />
+                                Processing Order...
+                              </span>
+                              <span className="text-[10px] text-espresso/60 normal-case">{processingStatus}</span>
+                            </>
+                          ) : (
+                            `Pay $${finalTotal.toFixed(2)}`
+                          )}
                         </button>
                         <p className="text-[10px] text-center text-espresso/40 uppercase tracking-widest mt-4">
                           Payments are secure and encrypted.
@@ -321,12 +370,16 @@ export default function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
                     <span>${total.toFixed(2)}</span>
                   </div>
                   <div className="flex items-center justify-between text-beige/60 text-sm">
+                    <span>Estimated Tax (8%)</span>
+                    <span>${tax.toFixed(2)}</span>
+                  </div>
+                  <div className="flex items-center justify-between text-beige/60 text-sm">
                     <span className="flex items-center gap-2">Shipping <Truck size={14} className="text-gold" /></span>
                     <span className="text-gold italic font-serif">Complimentary</span>
                   </div>
                   <div className="flex items-center justify-between pt-4 border-t border-cream/10">
                     <span className="text-sm uppercase tracking-widest font-bold">Total</span>
-                    <span className="text-3xl font-display text-gold">${total.toFixed(2)}</span>
+                    <span className="text-3xl font-display text-gold">${finalTotal.toFixed(2)}</span>
                   </div>
                 </div>
               </div>

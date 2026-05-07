@@ -15,7 +15,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           <div>
             <h3 className="text-2xl font-display font-bold tracking-tighter mb-6">
-              <span className="text-gold">A</span>ETHERIA
+              <span className="text-gold">DR.FINNIAN</span> BOOKS
             </h3>
             <p className="text-beige/60 text-sm italic font-serif leading-relaxed mb-8">
               "Books are a uniquely portable magic." We curate stories that inspire, challenge, and transport you to worlds beyond your imagination.

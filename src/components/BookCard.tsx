@@ -50,21 +50,6 @@ export function BookCard({ book, index }: BookCardProps) {
             />
             
             <div className="absolute inset-y-0 -left-1 w-2 bg-gradient-to-r from-white/30 to-transparent z-10" />
-            
-            <div className="absolute inset-0 bg-espresso/0 group-hover:bg-espresso/40 transition-colors flex flex-col items-center justify-center gap-4 opacity-0 group-hover:opacity-100 z-20 rounded-r-md">
-              <button 
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleAddToCart();
-                }}
-                className="w-12 h-12 bg-gold hover:bg-gold/90 text-espresso rounded-full flex items-center justify-center transition-transform hover:scale-110"
-              >
-                <ShoppingCart size={20} />
-              </button>
-              <button className="w-12 h-12 bg-white/20 hover:bg-white/30 text-white rounded-full flex items-center justify-center backdrop-blur-md transition-transform hover:scale-110">
-                <Heart size={20} />
-              </button>
-            </div>
           </motion.div>
           
           {book.price > 40 && (
@@ -86,7 +71,25 @@ export function BookCard({ book, index }: BookCardProps) {
           </div>
           <h3 className="text-xl font-display text-espresso group-hover:text-gold transition-colors truncate">{book.title}</h3>
           <p className="text-sm italic font-serif text-espresso/60">{book.author}</p>
-          <p className="text-lg font-medium text-espresso mt-2">${book.price.toFixed(2)}</p>
+          
+          <div className="flex items-center justify-between pt-2">
+            <p className="text-lg font-medium text-espresso">${book.price.toFixed(2)}</p>
+            <div className="flex items-center gap-1">
+              <button className="p-2 text-espresso/40 hover:text-vintage-red hover:bg-vintage-red/10 rounded-full transition-all">
+                <Heart size={18} />
+              </button>
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleAddToCart();
+                }}
+                className="p-2 text-cream bg-espresso hover:bg-gold hover:text-espresso rounded-full transition-all shadow-sm hover:shadow-md ml-1"
+                title="Add to Cart"
+              >
+                <ShoppingCart size={18} />
+              </button>
+            </div>
+          </div>
         </div>
       </motion.div>
 

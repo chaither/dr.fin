@@ -6,13 +6,13 @@
   --font-serif: "Cormorant Garamond", serif;
   --font-display: "Playfair Display", serif;
 
-  --color-espresso: #2B1D18;
-  --color-cream: #F7F0E8;
-  --color-gold: #C89B3C;
-  --color-beige: #E9DFC9;
-  --color-ink: #111111;
-  --color-paper: #FFFDF8;
-  --color-vintage-red: #8C3D3D;
+  --color-espresso: #F0F2F5; /* Light text for dark backgrounds */
+  --color-cream: #0A0D12; /* Deepest Obsidian / Navy black for main bg */
+  --color-gold: #CBAA73; /* Vintage Gold */
+  --color-beige: #1A1F2C; /* Dark surface */
+  --color-ink: #FFFFFF; /* Pure white */
+  --color-paper: #131821; /* Card backgrounds */
+  --color-vintage-red: #D25E5E; /* Muted vintage red */
   
   --animate-float: float 6s ease-in-out infinite;
   --animate-page-flip: pageFlip 1s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;

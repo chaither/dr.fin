@@ -7,6 +7,7 @@ import { useCart } from '../context/CartContext';
 import { signOut, auth } from '../lib/firebase';
 import AuthModal from './AuthModal';
 import CartOverlay from './CartOverlay';
+import CheckoutModal from './CheckoutModal';
 
 export default function Navbar() {
   const { t, i18n } = useTranslation();
@@ -15,6 +16,7 @@ export default function Navbar() {
   const [showLangs, setShowLangs] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
 
   const languages = [
     { code: 'en', label: 'English' },
@@ -138,7 +140,15 @@ export default function Navbar() {
       </nav>
 
       <AuthModal isOpen={isAuthOpen} onClose={() => setIsAuthOpen(false)} />
-      <CartOverlay isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+      <CartOverlay 
+        isOpen={isCartOpen} 
+        onClose={() => setIsCartOpen(false)} 
+        onCheckout={() => {
+          setIsCartOpen(false);
+          setIsCheckoutOpen(true);
+        }}
+      />
+      <CheckoutModal isOpen={isCheckoutOpen} onClose={() => setIsCheckoutOpen(false)} />
     </>
   );
 }

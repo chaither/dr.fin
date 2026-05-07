@@ -1,52 +1,18 @@
 import { motion, AnimatePresence } from 'motion/react';
-import { X, ShoppingBag, Trash2, Plus, Minus, CreditCard, Loader2, CheckCircle2 } from 'lucide-react';
+import { X, ShoppingBag, Trash2, Plus, Minus, CreditCard } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
-import { useState } from 'react';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
-import { db } from '../lib/firebase';
 
 interface CartOverlayProps {
   isOpen: boolean;
   onClose: () => void;
+  onCheckout: () => void;
 }
 
-export default function CartOverlay({ isOpen, onClose }: CartOverlayProps) {
-  const { items, removeFromCart, updateQuantity, clearCart, total } = useCart();
+export default function CartOverlay({ isOpen, onClose, onCheckout }: CartOverlayProps) {
+  const { items, removeFromCart, updateQuantity, total } = useCart();
   const { user } = useAuth();
-  const [isCheckingOut, setIsCheckingOut] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
 
-  const handleCheckout = async () => {
-    if (!user || items.length === 0) return;
-    
-    setIsCheckingOut(true);
-    try {
-      await addDoc(collection(db, 'orders'), {
-        userId: user.uid,
-        items: items.map(item => ({
-          bookId: item.bookId,
-          title: item.book?.title,
-          price: item.book?.price,
-          quantity: item.quantity
-        })),
-        total,
-        status: 'completed',
-        createdAt: serverTimestamp()
-      });
-      
-      await clearCart();
-      setIsSuccess(true);
-      setTimeout(() => {
-        setIsSuccess(false);
-        onClose();
-      }, 3000);
-    } catch (error) {
-      console.error('Checkout failed:', error);
-    } finally {
-      setIsCheckingOut(false);
-    }
-  };
 
   return (
     <AnimatePresence>
@@ -77,17 +43,7 @@ export default function CartOverlay({ isOpen, onClose }: CartOverlayProps) {
             </div>
 
             <div className="flex-grow overflow-y-auto p-6 space-y-6">
-              {isSuccess ? (
-                <motion.div 
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="h-full flex flex-col items-center justify-center text-center space-y-4"
-                >
-                  <CheckCircle2 size={64} className="text-gold" />
-                  <h3 className="text-2xl font-display text-espresso">Order Placed!</h3>
-                  <p className="text-espresso/60 font-serif italic">Your next adventure is on its way.</p>
-                </motion.div>
-              ) : items.length === 0 ? (
+              {items.length === 0 ? (
                 <div className="h-full flex flex-col items-center justify-center text-center opacity-40 italic font-serif">
                   <ShoppingBag size={48} className="mb-4" />
                   <p>Your bag is waiting for a story.</p>
@@ -139,16 +95,11 @@ export default function CartOverlay({ isOpen, onClose }: CartOverlayProps) {
                   <span className="text-xl font-display text-espresso">${total.toFixed(2)}</span>
                 </div>
                 <button 
-                  onClick={handleCheckout}
-                  disabled={isCheckingOut}
-                  className="w-full bg-espresso text-cream py-4 hover:bg-ink transition-all flex items-center justify-center gap-3 font-bold uppercase tracking-widest text-xs disabled:opacity-50"
+                  onClick={onCheckout}
+                  className="w-full bg-espresso text-cream py-4 hover:bg-ink transition-all flex items-center justify-center gap-3 font-bold uppercase tracking-widest text-xs"
                 >
-                  {isCheckingOut ? (
-                    <Loader2 size={18} className="animate-spin" />
-                  ) : (
-                    <CreditCard size={18} />
-                  )}
-                  {isCheckingOut ? 'Processing...' : 'Proceed to Checkout'}
+                  <CreditCard size={18} />
+                  Proceed to Checkout
                 </button>
                 <p className="text-[10px] text-center text-espresso/40 uppercase tracking-tighter">
                   Complimentary luxury wrapping included with every order.

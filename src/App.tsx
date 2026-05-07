@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import { useTranslation } from 'react-i18next';
 import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
+import ToastNotification from './components/ToastNotification';
 
 export default function App() {
   const { t } = useTranslation();
@@ -73,6 +74,7 @@ export default function App() {
           </main>
 
           <Footer />
+          <ToastNotification />
         </div>
       </CartProvider>
     </AuthProvider>

@@ -16,18 +16,21 @@ type CheckoutStep = 'shipping' | 'payment' | 'success';
 export default function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
   const { items, total, clearCart } = useCart();
   const { user } = useAuth();
-  
+
   const [step, setStep] = useState<CheckoutStep>('shipping');
   const [isProcessing, setIsProcessing] = useState(false);
   const [processingStatus, setProcessingStatus] = useState('');
-  
+
   const tax = total * 0.08; // 8% simulated tax
   const finalTotal = total + tax;
-  
+
   const [shippingDetails, setShippingDetails] = useState({
     fullName: '',
+    phone: '',
     address: '',
+    barangay: '',
     city: '',
+    province: '',
     zip: '',
     country: ''
   });
@@ -69,10 +72,10 @@ export default function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
   const handlePlaceOrder = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!user || items.length === 0) return;
-    
+
     setIsProcessing(true);
     setProcessingStatus('Connecting to secure gateway...');
-    
+
     // Simulate real bank processing delay and steps
     await new Promise(resolve => setTimeout(resolve, 800));
     setProcessingStatus('Verifying payment details...');
@@ -97,7 +100,7 @@ export default function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
         status: 'processing',
         createdAt: serverTimestamp()
       });
-      
+
       await clearCart();
       setStep('success');
     } catch (error) {
@@ -121,27 +124,27 @@ export default function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           className="fixed inset-0 z-[120] flex bg-paper"
         >
           {/* Close Button */}
-          <button 
-            onClick={handleClose} 
+          <button
+            onClick={handleClose}
             className="absolute top-6 right-6 z-50 p-2 text-espresso mix-blend-difference hover:text-gold transition-colors"
           >
             <X size={24} />
           </button>
 
           {step === 'success' ? (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               className="w-full h-full flex flex-col items-center justify-center text-center p-8 bg-espresso text-cream"
             >
-              <motion.div 
+              <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ type: "spring", delay: 0.2 }}
@@ -153,7 +156,7 @@ export default function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
               <p className="text-beige/60 font-serif italic text-xl max-w-lg mb-12">
                 Thank you for your acquisition. Your literary journey is being prepared with the utmost care.
               </p>
-              <button 
+              <button
                 onClick={handleClose}
                 className="px-10 py-4 bg-gold text-espresso font-bold uppercase tracking-widest text-xs hover:bg-gold/90 transition-colors"
               >
@@ -181,7 +184,7 @@ export default function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
                   {/* Forms */}
                   <AnimatePresence mode="wait">
                     {step === 'shipping' && (
-                      <motion.form 
+                      <motion.form
                         key="shipping"
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -193,53 +196,84 @@ export default function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
                           <MapPin className="text-gold" size={24} />
                           <h2 className="text-3xl font-display text-espresso">Shipping Address</h2>
                         </div>
-                        
+
                         <div className="space-y-6">
-                          <input 
-                            required
-                            type="text" 
-                            placeholder="Full Name" 
-                            className={inputClass}
-                            value={shippingDetails.fullName}
-                            onChange={(e) => setShippingDetails({...shippingDetails, fullName: e.target.value})}
-                          />
-                          <input 
-                            required
-                            type="text" 
-                            placeholder="Street Address" 
-                            className={inputClass}
-                            value={shippingDetails.address}
-                            onChange={(e) => setShippingDetails({...shippingDetails, address: e.target.value})}
-                          />
                           <div className="grid grid-cols-2 gap-6">
-                            <input 
+                            <input
                               required
-                              type="text" 
-                              placeholder="City" 
+                              type="text"
+                              placeholder="Full Name"
                               className={inputClass}
-                              value={shippingDetails.city}
-                              onChange={(e) => setShippingDetails({...shippingDetails, city: e.target.value})}
+                              value={shippingDetails.fullName}
+                              onChange={(e) => setShippingDetails({ ...shippingDetails, fullName: e.target.value })}
                             />
-                            <input 
+                            <input
                               required
-                              type="text" 
-                              placeholder="ZIP / Postal Code" 
+                              type="tel"
+                              placeholder="Phone Number"
                               className={inputClass}
-                              value={shippingDetails.zip}
-                              onChange={(e) => setShippingDetails({...shippingDetails, zip: e.target.value})}
+                              value={shippingDetails.phone}
+                              onChange={(e) => setShippingDetails({ ...shippingDetails, phone: e.target.value })}
                             />
                           </div>
-                          <input 
+
+                          <input
                             required
-                            type="text" 
-                            placeholder="Country" 
+                            type="text"
+                            placeholder="Street Address (House No., Street Name)"
                             className={inputClass}
-                            value={shippingDetails.country}
-                            onChange={(e) => setShippingDetails({...shippingDetails, country: e.target.value})}
+                            value={shippingDetails.address}
+                            onChange={(e) => setShippingDetails({ ...shippingDetails, address: e.target.value })}
                           />
+
+                          <input
+                            type="text"
+                            placeholder="Barangay / Apartment / Suite / Unit (Optional)"
+                            className={inputClass}
+                            value={shippingDetails.barangay}
+                            onChange={(e) => setShippingDetails({ ...shippingDetails, barangay: e.target.value })}
+                          />
+
+                          <div className="grid grid-cols-2 gap-6">
+                            <input
+                              required
+                              type="text"
+                              placeholder="City / Municipality"
+                              className={inputClass}
+                              value={shippingDetails.city}
+                              onChange={(e) => setShippingDetails({ ...shippingDetails, city: e.target.value })}
+                            />
+                            <input
+                              required
+                              type="text"
+                              placeholder="Province / State"
+                              className={inputClass}
+                              value={shippingDetails.province}
+                              onChange={(e) => setShippingDetails({ ...shippingDetails, province: e.target.value })}
+                            />
+                          </div>
+
+                          <div className="grid grid-cols-2 gap-6">
+                            <input
+                              required
+                              type="text"
+                              placeholder="ZIP / Postal Code"
+                              className={inputClass}
+                              value={shippingDetails.zip}
+                              onChange={(e) => setShippingDetails({ ...shippingDetails, zip: e.target.value })}
+                            />
+                            <input
+                              required
+                              type="text"
+                              placeholder="Country"
+                              className={inputClass}
+                              value={shippingDetails.country}
+                              onChange={(e) => setShippingDetails({ ...shippingDetails, country: e.target.value })}
+                            />
+                          </div>
                         </div>
 
-                        <button 
+                        <button
                           type="submit"
                           className="mt-12 w-full bg-espresso text-cream py-5 hover:bg-ink transition-all flex items-center justify-center gap-3 font-bold uppercase tracking-widest text-xs"
                         >
@@ -249,7 +283,7 @@ export default function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
                     )}
 
                     {step === 'payment' && (
-                      <motion.form 
+                      <motion.form
                         key="payment"
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -266,53 +300,53 @@ export default function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
                             <ArrowLeft size={14} /> Back
                           </button>
                         </div>
-                        
+
                         <div className="p-6 border border-espresso/10 bg-white/50 mb-8 flex flex-col gap-6">
                           <div className="flex justify-between items-center mb-2">
                             <span className="text-xs uppercase tracking-widest font-bold text-espresso/60">Credit Card</span>
                             <ShieldCheck className="text-gold" size={20} />
                           </div>
-                          
-                          <input 
+
+                          <input
                             required
-                            type="text" 
-                            placeholder="Card Number" 
+                            type="text"
+                            placeholder="Card Number"
                             className={inputClass}
                             maxLength={19}
                             value={paymentDetails.cardNumber}
                             onChange={handleCardNumberChange}
                           />
                           <div className="grid grid-cols-2 gap-6">
-                            <input 
+                            <input
                               required
-                              type="text" 
-                              placeholder="MM/YY" 
+                              type="text"
+                              placeholder="MM/YY"
                               className={inputClass}
                               maxLength={5}
                               value={paymentDetails.expiry}
                               onChange={handleExpiryChange}
                             />
-                            <input 
+                            <input
                               required
-                              type="text" 
-                              placeholder="CVC" 
+                              type="text"
+                              placeholder="CVC"
                               className={inputClass}
                               maxLength={4}
                               value={paymentDetails.cvc}
                               onChange={handleCvcChange}
                             />
                           </div>
-                          <input 
+                          <input
                             required
-                            type="text" 
-                            placeholder="Name on Card" 
+                            type="text"
+                            placeholder="Name on Card"
                             className={inputClass}
                             value={paymentDetails.nameOnCard}
-                            onChange={(e) => setPaymentDetails({...paymentDetails, nameOnCard: e.target.value})}
+                            onChange={(e) => setPaymentDetails({ ...paymentDetails, nameOnCard: e.target.value })}
                           />
                         </div>
 
-                        <button 
+                        <button
                           type="submit"
                           disabled={isProcessing}
                           className="w-full bg-gold text-espresso py-5 hover:bg-gold/90 transition-all flex flex-col items-center justify-center gap-1 font-bold uppercase tracking-widest text-xs disabled:opacity-50 min-h-[64px]"
@@ -345,7 +379,7 @@ export default function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
               {/* Right Side - Order Summary */}
               <div className="w-full md:w-2/5 h-full bg-espresso text-cream p-8 md:p-12 lg:p-16 flex flex-col">
                 <h3 className="text-2xl font-display mb-8 text-gold">Order Summary</h3>
-                
+
                 <div className="flex-grow overflow-y-auto space-y-6 pr-4 mb-8 custom-scrollbar">
                   {items.map((item) => (
                     <div key={item.bookId} className="flex gap-4">

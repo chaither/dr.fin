@@ -7,17 +7,18 @@ const resources = {
     translation: {
       nav: {
         home: 'Home',
-        categories: 'Categories',
+        categories: 'Collections',
         bestSellers: 'Best Sellers',
         authors: 'Authors',
         journal: 'Journal'
       },
       hero: {
-        est: 'Est. 1924 • Premium Curation',
-        titlePart1: 'Where Stories',
-        titlePart2: 'Come to Life',
-        quote: '"A library is not a luxury but one of the necessities of life."',
-        subtitle: 'Discover a curated world of literature in our immersive digital sanctuary.',
+
+        titlePart1: 'Stories that',
+        titlePart2: 'Inspire.',
+        titlePart3: 'Truth that',
+        titlePart4: 'Transforms.',
+        subtitle: 'Timeless books for a life of faith, hope, healing, and purpose.',
         explore: 'Explore Collections',
         ourStory: 'Our Story'
       },

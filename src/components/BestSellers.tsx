@@ -2,13 +2,30 @@ import { BookCard } from './BookCard';
 import { getBooks } from '../constants';
 import { useTranslation } from 'react-i18next';
 import { motion, useScroll, useTransform } from 'motion/react';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
+import { collection, onSnapshot } from 'firebase/firestore';
+import { db } from '../lib/firebase';
+import { Book } from '../types';
 
 export default function BestSellers() {
   const { t, i18n } = useTranslation();
-  const books = getBooks(i18n.language);
+  const staticBooks = getBooks(i18n.language);
+  const [dynamicBooks, setDynamicBooks] = useState<any[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
   
+  useEffect(() => {
+    const unsubscribe = onSnapshot(collection(db, 'books'), (snapshot) => {
+      const booksData: any[] = [];
+      snapshot.forEach(doc => {
+        booksData.push({ id: doc.id, ...doc.data() });
+      });
+      setDynamicBooks(booksData);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const allBooks = [...dynamicBooks, ...staticBooks];
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
@@ -17,7 +34,7 @@ export default function BestSellers() {
   const bgTextX = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
 
   return (
-    <section ref={containerRef} className="py-24 px-6 lg:px-20 bg-paper relative overflow-hidden">
+    <section id="best-sellers" ref={containerRef} className="py-24 px-6 lg:px-20 bg-paper relative overflow-hidden">
       <motion.div 
         style={{ x: bgTextX }}
         className="absolute top-[10%] left-0 w-full whitespace-nowrap pointer-events-none z-0"
@@ -36,7 +53,7 @@ export default function BestSellers() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
-          {books.map((book, index) => (
+          {allBooks.map((book, index) => (
             <BookCard key={book.id} book={book} index={index} />
           ))}
         </div>

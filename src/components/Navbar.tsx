@@ -9,7 +9,12 @@ import AuthModal from './AuthModal';
 import CartOverlay from './CartOverlay';
 import CheckoutModal from './CheckoutModal';
 
-export default function Navbar() {
+interface NavbarProps {
+  isAdminView?: boolean;
+  onAdminToggle?: () => void;
+}
+
+export default function Navbar({ isAdminView, onAdminToggle }: NavbarProps) {
   const { t, i18n } = useTranslation();
   const { user } = useAuth();
   const { items } = useCart();
@@ -35,9 +40,7 @@ export default function Navbar() {
   const navItems = [
     { key: 'home', label: t('nav.home') },
     { key: 'categories', label: t('nav.categories') },
-    { key: 'bestSellers', label: t('nav.bestSellers') },
     { key: 'authors', label: t('nav.authors') },
-    { key: 'journal', label: t('nav.journal') },
   ];
 
   return (
@@ -57,6 +60,15 @@ export default function Navbar() {
               <motion.a
                 key={item.key}
                 href="#"
+                onClick={(e) => {
+                  if (item.key === 'authors') {
+                    e.preventDefault();
+                    document.getElementById('author-spotlight')?.scrollIntoView({ behavior: 'smooth' });
+                  } else if (item.key === 'categories') {
+                    e.preventDefault();
+                    document.getElementById('best-sellers')?.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
@@ -116,6 +128,15 @@ export default function Navbar() {
                 <p className="text-[10px] font-bold uppercase text-gold tracking-widest">{t('account') || 'Member'}</p>
                 <p className="text-xs text-espresso/60 truncate max-w-[100px]">{user.displayName || user.email}</p>
               </div>
+              {user.email === 'chaitherjurolan18@gmail.com' && (
+                <button
+                  onClick={onAdminToggle}
+                  className={`p-2 rounded-full transition-colors flex items-center justify-center ${isAdminView ? 'bg-gold text-espresso' : 'hover:bg-espresso/5 text-espresso/80'}`}
+                  title="Admin Portal"
+                >
+                  <User size={18} />
+                </button>
+              )}
               <button
                 onClick={() => signOut(auth)}
                 className="p-2 hover:bg-espresso/5 rounded-full transition-colors text-espresso/40 hover:text-vintage-red"

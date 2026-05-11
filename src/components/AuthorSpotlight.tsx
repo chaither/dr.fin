@@ -2,6 +2,7 @@ import { motion, useScroll, useTransform } from 'motion/react';
 import { useRef } from 'react';
 import { Quote } from 'lucide-react';
 import authorImg from '../Pictures/prof.png';
+import bgImage from '../Pictures/new2.png';
 
 export default function ParallaxStory() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -14,33 +15,47 @@ export default function ParallaxStory() {
   const textScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8]);
 
   return (
-    <section ref={containerRef} className="relative h-[150vh] bg-espresso overflow-hidden">
+    <section ref={containerRef} className="relative h-[150vh] bg-[#1A1410] overflow-hidden">
       <motion.div 
         style={{ y: imgY }}
-        className="absolute inset-0 opacity-40 grayscale"
+        className="absolute inset-0 opacity-60"
       >
         <img 
-          src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&q=80&w=2000" 
+          src={bgImage} 
           alt="Library"
           className="w-full h-full object-cover"
         />
       </motion.div>
-      <div className="absolute inset-0 bg-gradient-to-b from-espresso via-transparent to-espresso" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#1A1410] via-transparent to-[#1A1410]" />
 
-      <div className="sticky top-0 h-screen flex items-center justify-center text-center px-6">
+      <div className="sticky top-0 h-screen flex flex-col items-center justify-center px-6">
+        {/* Top Header */}
+        <div className="w-full max-w-4xl mb-16 flex flex-col items-center">
+          <div className="flex items-center justify-center w-full">
+            <div className="h-[1px] flex-1 bg-gold/30" />
+            <span className="font-display text-3xl text-gold mx-6 tracking-wider font-bold">
+              DR. FINNIAN <span className="text-cream">BOOKS</span>
+            </span>
+            <div className="h-[1px] flex-1 bg-gold/30" />
+          </div>
+          {/* Decorative flourish below */}
+          <div className="flex items-center justify-center w-1/3 mt-2">
+            <div className="h-[1px] flex-1 bg-gold/30" />
+            <span className="text-gold mx-3 text-xs">⬥</span>
+            <div className="h-[1px] flex-1 bg-gold/30" />
+          </div>
+        </div>
+
         <motion.div 
           style={{ scale: textScale }}
-          className="max-w-4xl"
+          className="max-w-4xl flex flex-col items-center"
         >
-          <Quote className="text-gold mx-auto mb-8 opacity-50" size={64} />
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-display text-cream leading-tight mb-12 italic font-light">
-            "After all, nothing in the world – not even the most supreme act of love – is able to persuade you emotionally to turn from your sin (John 3:19). Jesus died to accomplish something more significant and certain."
+          <Quote className="text-gold mb-6 opacity-50" size={48} />
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display text-cream leading-relaxed mb-12 text-center">
+            “After all, <span className="italic text-gold">nothing in the world</span> — not even the most <span className="italic text-gold">supreme act of love</span> — is able to persuade you emotionally to <span className="italic text-gold">turn from your sin</span> (John 3:19). Jesus died to accomplish something <span className="italic text-gold">more significant and certain</span>.”
           </h2>
-          <div className="flex items-center justify-center gap-4">
-            <div className="h-[1px] w-12 bg-gold" />
-            <p className="text-gold uppercase tracking-[0.3em] text-sm font-bold">Dr. Finnian Ebuehi</p>
-            <div className="h-[1px] w-12 bg-gold" />
-          </div>
+
+          
         </motion.div>
       </div>
     </section>
@@ -49,7 +64,7 @@ export default function ParallaxStory() {
 
 export function AuthorSpotlight() {
   return (
-    <section className="py-24 px-6 lg:px-20 bg-cream border-t border-espresso/5">
+    <section id="author-spotlight" className="py-24 px-6 lg:px-20 bg-cream border-t border-espresso/5">
       <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
         <motion.div
            initial={{ opacity: 0, x: -30 }}
@@ -70,7 +85,7 @@ export function AuthorSpotlight() {
           viewport={{ once: true }}
         >
           <p className="text-gold uppercase tracking-widest text-xs font-bold mb-4">Author Spotlight</p>
-          <h2 className="text-5xl lg:text-7xl text-espresso mb-8 underline decoration-gold/20 underline-offset-8">
+          <h2 className="text-5xl lg:text-7xl text-gold mb-8 underline decoration-espresso/10 underline-offset-8">
             Dr. Finnian Ebuehi
           </h2>
           <div className="text-lg text-espresso/80 font-serif mb-10 leading-relaxed space-y-4">

@@ -27,19 +27,19 @@ export const getBooks = (lang: string = 'en'): Book[] => {
   const images = languageImages[lang] && languageImages[lang].length > 0 ? languageImages[lang] : defaultImages;
 
   const baseBooks = [
-    { title: 'Who is this Jesus Christ? The Power of the Cross', author: 'Dr. Finnian Ebuehi', price: 18.99, rating: 4.8, genre: 'Theology', description: 'A deep dive into the identity of Jesus Christ and the transformative power of the cross.' },
-    { title: 'Shattered and Consumed by the Holy Spirit', author: 'Dr. Finnian Ebuehi', price: 15.50, rating: 4.9, genre: 'Spiritual', description: 'An exploration of a life completely surrendered to and transformed by the fire of the Holy Spirit.' },
-    { title: 'The Jezebel Spirit, The Ahab Spirit, And You.', author: 'Dr. Finnian Ebuehi', price: 17.99, rating: 4.7, genre: 'Christian Living', description: 'A practical guide to identifying, confronting, and overcoming destructive spiritual influences in your life.' },
-    { title: 'Trauma Dilemma: Healing the Hurt, Restoring the Soul', author: 'Dr. Finnian Ebuehi', price: 19.99, rating: 4.9, genre: 'Healing', description: 'A compassionate approach to overcoming trauma, healing deep emotional wounds, and finding that victory is possible.' },
-    { title: 'Maranatha: A Transformative Journey', author: 'Dr. Finnian Ebuehi', price: 16.50, rating: 4.8, genre: 'Faith', description: 'A transformative journey of faith, hope, and victory in Christ as we await His glorious return.' },
-    { title: 'The Valley of Dry Bones', author: 'Dr. Finnian Ebuehi', price: 14.99, rating: 4.6, genre: 'Prophetic', description: 'Drawing inspiration from Ezekiel, this book explores how God brings life, revival, and restoration to dead situations.' },
-    { title: 'Spiritual Warfare', author: 'Dr. Finnian Ebuehi', price: 21.00, rating: 4.9, genre: 'Spiritual Warfare', description: 'Arm yourself with biblical strategies to stand firm against spiritual attacks and secure your victory.' },
-    { title: 'The Way Down is the Way Up', author: 'Dr. Finnian Ebuehi', price: 12.99, rating: 4.7, genre: 'Christian Living', description: 'Discover the profound biblical paradox that true humility and surrender are the pathways to spiritual elevation.' },
-    { title: 'Grieving. Bereavement. & Dying.', author: 'Dr. Finnian Ebuehi', price: 18.50, rating: 4.8, genre: 'Comfort', description: 'A comforting and biblical guide through the difficult seasons of loss, mourning, and facing mortality.' },
-    { title: 'Holy Spirit Calling: 40 Day Devotional', author: 'Dr. Finnian Ebuehi', price: 15.99, rating: 4.9, genre: 'Devotional', description: 'A 40-day devotional designed for children, youth, and families to grow together in the Holy Spirit.' },
-    { title: 'Prayerless Prayers: Different Strokes', author: 'Dr. Finnian Ebuehi', price: 14.50, rating: 4.5, genre: 'Prayer', description: 'An eye-opening look into the nature of true prayer versus empty repetition, and how to connect genuinely with God.' },
-    { title: 'Apologetics', author: 'Dr. Finnian Ebuehi', price: 22.99, rating: 4.8, genre: 'Apologetics', description: 'A practical guide to defending your faith with truth, love, and wisdom in a challenging world.' },
-    { title: 'Nuggets of Faith: The Main Thing', author: 'Dr. Finnian Ebuehi', price: 13.99, rating: 4.6, genre: 'Inspirational', description: 'Bite-sized, powerful insights to keep your focus on what truly matters in your daily walk of faith.' }
+    { title: 'Who is this Jesus Christ? The Power of the Cross', author: 'Dr. Finnian Ebuehi', price: 18.99, rating: 4.8, genre: 'Theology', description: 'A deep dive into the identity of Jesus Christ and the transformative power of the cross.', stripeLink: '' },
+    { title: 'Shattered and Consumed by the Holy Spirit', author: 'Dr. Finnian Ebuehi', price: 15.50, rating: 4.9, genre: 'Spiritual', description: 'An exploration of a life completely surrendered to and transformed by the fire of the Holy Spirit.', stripeLink: '' },
+    { title: 'The Jezebel Spirit, The Ahab Spirit, And You.', author: 'Dr. Finnian Ebuehi', price: 17.99, rating: 4.7, genre: 'Christian Living', description: 'A practical guide to identifying, confronting, and overcoming destructive spiritual influences in your life.', stripeLink: '' },
+    { title: 'Trauma Dilemma: Healing the Hurt, Restoring the Soul', author: 'Dr. Finnian Ebuehi', price: 19.99, rating: 4.9, genre: 'Healing', description: 'A compassionate approach to overcoming trauma, healing deep emotional wounds, and finding that victory is possible.', stripeLink: '' },
+    { title: 'Maranatha: A Transformative Journey', author: 'Dr. Finnian Ebuehi', price: 16.50, rating: 4.8, genre: 'Faith', description: 'A transformative journey of faith, hope, and victory in Christ as we await His glorious return.', stripeLink: '' },
+    { title: 'The Valley of Dry Bones', author: 'Dr. Finnian Ebuehi', price: 14.99, rating: 4.6, genre: 'Prophetic', description: 'Drawing inspiration from Ezekiel, this book explores how God brings life, revival, and restoration to dead situations.', stripeLink: '' },
+    { title: 'Spiritual Warfare', author: 'Dr. Finnian Ebuehi', price: 21.00, rating: 4.9, genre: 'Spiritual Warfare', description: 'Arm yourself with biblical strategies to stand firm against spiritual attacks and secure your victory.', stripeLink: '' },
+    { title: 'The Way Down is the Way Up', author: 'Dr. Finnian Ebuehi', price: 12.99, rating: 4.7, genre: 'Christian Living', description: 'Discover the profound biblical paradox that true humility and surrender are the pathways to spiritual elevation.', stripeLink: '' },
+    { title: 'Grieving. Bereavement. & Dying.', author: 'Dr. Finnian Ebuehi', price: 18.50, rating: 4.8, genre: 'Comfort', description: 'A comforting and biblical guide through the difficult seasons of loss, mourning, and facing mortality.', stripeLink: '' },
+    { title: 'Holy Spirit Calling: 40 Day Devotional', author: 'Dr. Finnian Ebuehi', price: 15.99, rating: 4.9, genre: 'Devotional', description: 'A 40-day devotional designed for children, youth, and families to grow together in the Holy Spirit.', stripeLink: '' },
+    { title: 'Prayerless Prayers: Different Strokes', author: 'Dr. Finnian Ebuehi', price: 14.50, rating: 4.5, genre: 'Prayer', description: 'An eye-opening look into the nature of true prayer versus empty repetition, and how to connect genuinely with God.', stripeLink: '' },
+    { title: 'Apologetics', author: 'Dr. Finnian Ebuehi', price: 22.99, rating: 4.8, genre: 'Apologetics', description: 'A practical guide to defending your faith with truth, love, and wisdom in a challenging world.', stripeLink: '' },
+    { title: 'Nuggets of Faith: The Main Thing', author: 'Dr. Finnian Ebuehi', price: 13.99, rating: 4.6, genre: 'Inspirational', description: 'Bite-sized, powerful insights to keep your focus on what truly matters in your daily walk of faith.', stripeLink: '' }
   ];
 
   return images.map((image, index) => {
@@ -52,7 +52,8 @@ export const getBooks = (lang: string = 'en'): Book[] => {
       rating: base.rating,
       genre: base.genre,
       image: image,
-      description: base.description
+      description: base.description,
+      stripeLink: base.stripeLink
     };
   });
 };

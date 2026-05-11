@@ -1,7 +1,6 @@
 import { motion } from 'motion/react';
-import { ShoppingCart, Heart, Star } from 'lucide-react';
+import { Heart, Star } from 'lucide-react';
 import { Book } from '../types';
-import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { useState } from 'react';
 import AuthModal from './AuthModal';
@@ -14,18 +13,9 @@ interface BookCardProps {
 }
 
 export function BookCard({ book, index }: BookCardProps) {
-  const { addToCart } = useCart();
   const { user } = useAuth();
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
-
-  const handleAddToCart = async () => {
-    if (!user) {
-      setIsAuthOpen(true);
-      return;
-    }
-    await addToCart(book.id);
-  };
 
   return (
     <>
@@ -43,15 +33,15 @@ export function BookCard({ book, index }: BookCardProps) {
             className="w-full h-full preserve-3d cursor-pointer"
             onClick={() => setIsDetailsOpen(true)}
           >
-            <img 
-              src={book.image} 
+            <img
+              src={book.image}
               alt={book.title}
               className="w-full h-full object-cover rounded-r-md book-shadow transition-shadow group-hover:shadow-2xl"
             />
-            
+
             <div className="absolute inset-y-0 -left-1 w-2 bg-gradient-to-r from-white/30 to-transparent z-10" />
           </motion.div>
-          
+
           {book.price > 40 && (
             <div className="absolute top-4 left-4 z-30">
               <span className="bg-gold text-espresso text-[10px] font-bold px-2 py-1 rounded-sm uppercase tracking-tighter shadow-lg">
@@ -71,34 +61,39 @@ export function BookCard({ book, index }: BookCardProps) {
           </div>
           <h3 className="text-xl font-display text-espresso group-hover:text-gold transition-colors truncate">{book.title}</h3>
           <p className="text-sm italic font-serif text-espresso/60">{book.author}</p>
-          
+
           <div className="flex items-center justify-between pt-2">
             <p className="text-lg font-medium text-espresso">${book.price.toFixed(2)}</p>
             <div className="flex items-center gap-1">
               <button className="p-2 text-espresso/40 hover:text-vintage-red hover:bg-vintage-red/10 rounded-full transition-all">
                 <Heart size={18} />
               </button>
-              <button 
+              <a
+                href={book.stripeLink || "#"}
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={(e) => {
                   e.stopPropagation();
-                  handleAddToCart();
+                  if (!book.stripeLink) {
+                    e.preventDefault();
+                    alert("Checkout link not available yet.");
+                  }
                 }}
-                className="p-2 text-cream bg-espresso hover:bg-gold hover:text-espresso rounded-full transition-all shadow-sm hover:shadow-md ml-1"
-                title="Add to Cart"
+                className="p-2 text-cream bg-espresso hover:bg-gold hover:text-espresso rounded-full transition-all shadow-sm hover:shadow-md ml-1 flex items-center justify-center"
+                title="Checkout"
               >
-                <ShoppingCart size={18} />
-              </button>
+                <span className="text-xs font-bold px-1">Checkout</span>
+              </a>
             </div>
           </div>
         </div>
       </motion.div>
 
       <AuthModal isOpen={isAuthOpen} onClose={() => setIsAuthOpen(false)} />
-      <BookDetailsModal 
-        isOpen={isDetailsOpen} 
-        onClose={() => setIsDetailsOpen(false)} 
-        book={book} 
-        onAddToCart={handleAddToCart}
+      <BookDetailsModal
+        isOpen={isDetailsOpen}
+        onClose={() => setIsDetailsOpen(false)}
+        book={book}
       />
     </>
   );

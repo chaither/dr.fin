@@ -7,6 +7,7 @@ export interface Book {
   image: string;
   genre: string;
   description: string;
+  stripeLink?: string;
 }
 
 export interface Category {

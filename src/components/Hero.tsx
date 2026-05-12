@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from 'motion/react';
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { getBooks } from '../constants';
@@ -24,6 +24,14 @@ export default function Hero() {
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    if (isModalOpen) return;
+    const interval = setInterval(() => {
+      setActiveIndex((prevIndex) => (prevIndex + 1) % books.length);
+    }, 5000); // Auto-slide every 5 seconds
+    return () => clearInterval(interval);
+  }, [isModalOpen, books.length]);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e: React.MouseEvent) => {
@@ -58,6 +66,9 @@ export default function Hero() {
         className="absolute bottom-1/4 left-[5%] w-96 h-96 bg-espresso/5 rounded-full blur-3xl -z-10"
       />
 
+      {/* Dark Gradient Overlay for Readability */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent pointer-events-none" />
+
       <div className="grid lg:grid-cols-2 gap-12 items-center w-full max-w-7xl mx-auto z-10">
         
         {/* Left Side: Text and Buttons (Preserved) */}
@@ -67,7 +78,7 @@ export default function Hero() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           style={{ opacity, y: textY }}
         >
-          <h1 className="text-6xl lg:text-7xl font-display leading-[0.9] text-cream mb-8">
+          <h1 className="text-6xl lg:text-7xl font-display leading-[0.9] text-cream mb-8 drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
             {t('hero.titlePart1')} <br />
             <span className="italic font-light text-gold">{t('hero.titlePart2')}</span> <br />
             {t('hero.titlePart3')} <br />
@@ -86,9 +97,7 @@ export default function Hero() {
               {t('hero.explore')}
               <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </button>
-            <button className="px-8 py-4 border border-espresso text-espresso font-medium rounded-sm hover:bg-espresso hover:text-cream transition-all">
-              {t('hero.ourStory')}
-            </button>
+          
           </div>
         </motion.div>
 

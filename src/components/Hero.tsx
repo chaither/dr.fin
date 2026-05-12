@@ -4,6 +4,7 @@ import { ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { getBooks } from '../constants';
 import backgroundImage from '../Pictures/new.png';
+import BookDetailsModal from './BookDetailsModal';
 
 export default function Hero() {
   const { t, i18n } = useTranslation();
@@ -22,6 +23,7 @@ export default function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e: React.MouseEvent) => {
@@ -99,10 +101,20 @@ export default function Hero() {
           <div className="relative w-full h-full flex items-center justify-center" style={{ perspective: '1200px', perspectiveOrigin: '50% 10%', transformStyle: 'preserve-3d', transform: 'translateX(120px)' }}>
             
             {books.map((book, index) => {
-              // Calculate position in the cascade (0: Large, 1: Medium, 2: Small)
-              let pos = (index - activeIndex + books.length) % books.length;
+              const length = books.length;
+              let offset = (index - activeIndex + length) % length;
+              if (offset > length / 2) {
+                offset -= length;
+              }
               
-              // Show 5 items in the cascade
+              // Map offset to pos (0: Center, 1: Right Imm, 2: Right Far, 4: Left Imm, 3: Left Far)
+              let pos = 5; // Default not visible
+              if (offset === 0) pos = 0;
+              else if (offset === 1) pos = 1;
+              else if (offset === 2) pos = 2;
+              else if (offset === -1) pos = 4;
+              else if (offset === -2) pos = 3;
+              
               const isVisible = pos < 5;
               
               if (!isVisible) return null;
@@ -117,39 +129,39 @@ export default function Hero() {
               // No baseOffset, use symmetric positions
               // Adjusted positions for better spacing and realistic hierarchy
               if (pos === 0) {
-                // Center book (smaller)
+                // Center book (focal point)
                 xPos = 0;
-                scale = 0.8; // smaller than side books
-                zPos = 100; // bring forward slightly
+                scale = 1.0;
+                zPos = 100; // bring forward
                 rotateY = 0;
                 yPos = 0;
               } else if (pos === 1) {
-                // Right immediate side (larger)
-                xPos = 190; // adjusted spacing
-                scale = 1.0;
-                zPos = 20; // slightly behind center
-                rotateY = -20; // Rotate towards center
+                // Right immediate side
+                xPos = 190;
+                scale = 0.85;
+                zPos = 20;
+                rotateY = -20;
                 yPos = 0;
               } else if (pos === 2) {
-                // Right far side (medium)
-                xPos = 380; // adjusted spacing
-                scale = 0.85;
+                // Right far side
+                xPos = 380;
+                scale = 0.7;
                 zPos = -20;
-                rotateY = -30; // Rotate towards center
+                rotateY = -30;
                 yPos = 0;
               } else if (pos === 3) {
-                // Left far side (medium)
-                xPos = -380; // adjusted spacing
-                scale = 0.85;
+                // Left far side
+                xPos = -380;
+                scale = 0.7;
                 zPos = -20;
-                rotateY = 30; // Rotate towards center
+                rotateY = 30;
                 yPos = 0;
               } else if (pos === 4) {
-                // Left immediate side (larger)
-                xPos = -190; // adjusted spacing
-                scale = 1.0;
+                // Left immediate side
+                xPos = -190;
+                scale = 0.85;
                 zPos = 20;
-                rotateY = 20; // Rotate towards center
+                rotateY = 20;
                 yPos = 0;
               }
 
@@ -163,7 +175,7 @@ export default function Hero() {
                     width: '280px',
                     height: '400px',
                     transformStyle: 'preserve-3d',
-                    zIndex: 10 - pos, // Higher z-index for larger items on left
+                    zIndex: 10 - (pos === 0 ? 0 : (pos === 1 || pos === 4 ? 1 : 2)), // Symmetrical z-index based on depth
                     originY: 1, // Scale from bottom to align bottoms!
                   }}
                   animate={{
@@ -181,7 +193,13 @@ export default function Hero() {
                     stiffness: 120,
                     damping: 20,
                   }}
-                  onClick={() => setActiveIndex(index)}
+                  onClick={() => {
+                    if (isActive) {
+                      setIsModalOpen(true);
+                    } else {
+                      setActiveIndex(index);
+                    }
+                  }}
                 >
                   {/* Grounded Book Container (No floating) */}
                   <div className="w-full h-full preserve-3d">
@@ -262,6 +280,11 @@ export default function Hero() {
 
       </div>
 
+      <BookDetailsModal 
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        book={books[activeIndex]}
+      />
     </section>
   );
 }

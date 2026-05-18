@@ -31,7 +31,7 @@ export default function BookDetailsModal({ isOpen, onClose, book }: BookDetailsM
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 50 }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-6xl bg-cream rounded-[32px] shadow-[0_30px_60px_rgba(0,0,0,0.4)] z-[101] border border-gold/20 overflow-hidden flex flex-col md:flex-row max-h-[90vh]"
+            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-7xl bg-cream rounded-[32px] shadow-[0_30px_60px_rgba(0,0,0,0.4)] z-[101] border border-gold/20 overflow-hidden flex flex-col md:flex-row max-h-[90vh]"
           >
             {/* Close Button */}
             <button onClick={onClose} className="absolute top-6 right-6 text-[#0A1128]/60 hover:text-[#0A1128] transition-colors z-20 bg-white/80 backdrop-blur-sm p-2 rounded-full border border-gold/10">
@@ -156,26 +156,12 @@ export default function BookDetailsModal({ isOpen, onClose, book }: BookDetailsM
                 {/* About Section */}
                 <div className="space-y-4 mb-6">
                   <h3 className="text-sm font-bold uppercase tracking-widest text-[#0A1128]">About the Work</h3>
-                  <p className="text-espresso/80 leading-relaxed font-serif text-sm max-h-[150px] overflow-y-auto">
+                  <p className="text-black font-bold leading-relaxed font-serif text-base whitespace-pre-wrap">
                     {book.description}
                   </p>
                 </div>
 
-                {/* Bullet point features */}
-                <div className="space-y-2 mb-8">
-                  <div className="flex items-center gap-2 text-sm text-espresso/80 font-serif">
-                    <Check size={14} className="text-gold" />
-                    <span>Premium linen hardbound cover</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-espresso/80 font-serif">
-                    <Check size={14} className="text-gold" />
-                    <span>Gold foil title lettering</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-espresso/80 font-serif">
-                    <Check size={14} className="text-gold" />
-                    <span>Archival quality acid-free paper</span>
-                  </div>
-                </div>
+                
               </div>
 
               {/* PRICE & CTA SECTION */}

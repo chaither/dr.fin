@@ -24,9 +24,10 @@ export default function Navbar() {
 
   const languages = [
     { code: 'en', label: 'English' },
-    { code: 'fr', label: 'Français' },
     { code: 'es', label: 'Español' },
     { code: 'ar', label: 'العربية' },
+    { code: 'fr', label: 'Français' },
+    { code: 'ha', label: 'Hausa' },
     { code: 'sw', label: 'Kiswahili' }
   ];
 

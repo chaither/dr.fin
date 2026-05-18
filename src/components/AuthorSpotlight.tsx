@@ -2,7 +2,7 @@ import { motion, useScroll, useTransform } from 'motion/react';
 import { useRef } from 'react';
 import { Quote } from 'lucide-react';
 import authorImg from '../Pictures/prof.png';
-import bgImage from '../Pictures/new2.png';
+import bgImage from '../Pictures/back3.png';
 
 export default function ParallaxStory() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -15,10 +15,10 @@ export default function ParallaxStory() {
   const textScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8]);
 
   return (
-    <section ref={containerRef} className="relative h-[150vh] bg-[#1A1410] overflow-hidden">
+    <section ref={containerRef} className="relative h-[150vh] bg-cream overflow-hidden">
       <motion.div 
         style={{ y: imgY }}
-        className="absolute inset-0 opacity-60"
+        className="absolute inset-0"
       >
         <img 
           src={bgImage} 
@@ -26,11 +26,10 @@ export default function ParallaxStory() {
           className="w-full h-full object-cover"
         />
       </motion.div>
-      <div className="absolute inset-0 bg-gradient-to-b from-[#1A1410] via-transparent to-[#1A1410]" />
 
-      <div className="sticky top-0 h-screen flex flex-col items-center justify-center px-6">
+      <div className="sticky top-0 h-screen flex flex-col items-center justify-center px-6 pt-16">
         {/* Top Header */}
-        <div className="w-full max-w-4xl mb-16 flex flex-col items-center">
+        <div className="w-full max-w-3xl mb-12 flex flex-col items-center mt-12">
           <div className="flex items-center justify-center w-full">
             <div className="h-[1px] flex-1 bg-gold/30" />
             <span className="font-display text-3xl text-gold mx-6 tracking-wider font-bold">
@@ -48,13 +47,12 @@ export default function ParallaxStory() {
 
         <motion.div 
           style={{ scale: textScale }}
-          className="max-w-4xl flex flex-col items-center"
+          className="max-w-3xl flex flex-col items-center"
         >
           <Quote className="text-gold mb-6 opacity-50" size={48} />
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display text-cream leading-relaxed mb-12 text-center">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display text-cream leading-relaxed mb-12 text-center px-4">
             “After all, <span className="italic text-gold">nothing in the world</span> — not even the most <span className="italic text-gold">supreme act of love</span> — is able to persuade you emotionally to <span className="italic text-gold">turn from your sin</span> (John 3:19). Jesus died to accomplish something <span className="italic text-gold">more significant and certain</span>.”
           </h2>
-
           
         </motion.div>
       </div>
@@ -73,7 +71,7 @@ export function AuthorSpotlight() {
            className="relative"
         >
           <div className="aspect-[4/5] relative z-10 rounded-sm overflow-hidden border-[12px] border-paper shadow-2xl">
-            <img src={authorImg} alt="Dr. Finnian Ebuehi" className="w-full h-full object-cover grayscale" />
+            <img src={authorImg} alt="Dr. Finnian Ebuehi" className="w-full h-full object-cover" />
           </div>
           <div className="absolute -top-10 -left-10 w-40 h-40 border border-gold/30 -z-10" />
           <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-gold/10 -z-10" />

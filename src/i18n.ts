@@ -29,8 +29,8 @@ const resources = {
         viewAll: 'View All Categories'
       },
       bestSellers: {
-        title: 'Timeless',
-        titleAccent: 'Masterpieces',
+        title: 'Masterpiece',
+        titleAccent: 'Books',
         subtitle: 'Curating the finest literature that has stood the test of time.'
       },
       newsletter: {
@@ -135,6 +135,24 @@ const resources = {
         subtitle: 'اكتشف عالماً منسقاً من الأدب في ملاذنا الرقمي الغامر.',
         explore: 'استكشف المجموعات',
         ourStory: 'قصتنا'
+      },
+      categories: {
+        title: 'استكشف حسب',
+        titleAccent: 'النوع',
+        subtitle: 'كل نوع يحمل كوناً مختلفاً ينتظر من يكتشفه.',
+        viewAll: 'عرض جميع الفئات'
+      },
+      bestSellers: {
+        title: 'روائع',
+        titleAccent: 'خالدة',
+        subtitle: 'ننتقي أفضل الأدب الذي صمد أمام اختبار الزمن.'
+      },
+      newsletter: {
+        title: 'انضم إلى',
+        titleAccent: 'الدائرة الداخلية',
+        subtitle: 'اشترك في سجل كتب فين للحصول على مقابلات حصرية مع المؤلفين.',
+        placeholder: 'عنوان بريدك الإلكتروني',
+        button: 'اشترك'
       }
     }
   },
@@ -155,6 +173,62 @@ const resources = {
         subtitle: 'Gundua ulimwengu wa fasihi ulioteuliwa katika patakatifu petu paimara.',
         explore: 'Gundua Mikusanyiko',
         ourStory: 'Hadithi Yetu'
+      },
+      categories: {
+        title: 'Gundua kwa',
+        titleAccent: 'Aina',
+        subtitle: 'Kila aina ina ulimwengu tofauti unaongojea kugunduliwa.',
+        viewAll: 'Tazama Kategoria Zote'
+      },
+      bestSellers: {
+        title: 'Kazi Bora',
+        titleAccent: 'Zisizo na Wakati',
+        subtitle: 'Kuratibu fasihi bora zaidi ambayo imestahimili mtihani wa wakati.'
+      },
+      newsletter: {
+        title: 'Jiunge na',
+        titleAccent: 'Mzunguko wa Ndani',
+        subtitle: 'Jiandikishe kwa Fin Books Chronicle kwa mahojiano ya kipekee ya waandishi.',
+        placeholder: 'Barua pepe yako',
+        button: 'Jiandikishe'
+      }
+    }
+  },
+  ha: {
+    translation: {
+      nav: {
+        home: 'Gida',
+        categories: 'Rukuni',
+        bestSellers: 'Mafi Sayarwa',
+        authors: 'Mawallafa',
+        journal: 'Jarida'
+      },
+      hero: {
+        titlePart1: 'Labaran da ke',
+        titlePart2: 'Girma.',
+        titlePart3: 'Gaskiya ta',
+        titlePart4: 'Sauya.',
+        subtitle: 'Littattafai maras lokaci don rayuwar bangaskiya, fata, warkarwa, da manufa.',
+        explore: 'Bincika Tari',
+        ourStory: 'Labarinmu'
+      },
+      categories: {
+        title: 'Bincika ta',
+        titleAccent: 'Rukuni',
+        subtitle: 'Kowane rukuni yana riƙe da wata duniya daban da ke jiran a gano ta.',
+        viewAll: 'Duba Duk Rukuni'
+      },
+      bestSellers: {
+        title: 'Ayyukan Gwaninta',
+        titleAccent: 'Maras Lokaci',
+        subtitle: 'Zaɓar mafi kyawun adabi wanda ya jure gwajin lokaci.'
+      },
+      newsletter: {
+        title: 'Shiga',
+        titleAccent: 'Da\'irar Ciki',
+        subtitle: 'Yi rijista ga Fin Books Chronicle don keɓantattun tattaunawa da marubuta.',
+        placeholder: 'Adireshin imel ɗinka',
+        button: 'Yi rijista'
       }
     }
   }

@@ -3,14 +3,14 @@ import React, { useRef, useState, useEffect } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { getBooks } from '../constants';
-import backgroundImage from '../Pictures/new.png';
+import backgroundImage from '../Pictures/back1.png';
 import BookDetailsModal from './BookDetailsModal';
 
 export default function Hero() {
   const { t, i18n } = useTranslation();
   const books = getBooks(i18n.language);
   const containerRef = useRef<HTMLDivElement>(null);
-  
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"]
@@ -70,7 +70,7 @@ export default function Hero() {
       <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent pointer-events-none" />
 
       <div className="grid lg:grid-cols-2 gap-12 items-center w-full max-w-7xl mx-auto z-10">
-        
+
         {/* Left Side: Text and Buttons (Preserved) */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
@@ -90,32 +90,32 @@ export default function Hero() {
           </p>
 
           <div className="flex flex-wrap gap-4">
-            <button 
+            <button
               onClick={() => document.getElementById('best-sellers')?.scrollIntoView({ behavior: 'smooth' })}
               className="px-8 py-4 bg-espresso text-cream font-medium rounded-sm hover:bg-ink transition-all flex items-center gap-2 group"
             >
               {t('hero.explore')}
               <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </button>
-          
+
           </div>
         </motion.div>
 
         {/* Right Side: 3D Book Carousel with "Stepping" Format */}
-        <motion.div 
-          className="relative h-[600px] flex items-center justify-center overflow-visible mt-[200px]"
+        <motion.div
+          className="relative h-[600px] flex items-center justify-center overflow-visible mt-[360px]"
           style={{ y: imgY, opacity }}
         >
           {/* Carousel Wrapper with Perspective (Centered horizontally, High angle) */}
           <div className="relative w-full h-full flex items-center justify-center" style={{ perspective: '1200px', perspectiveOrigin: '50% 10%', transformStyle: 'preserve-3d', transform: 'translateX(120px)' }}>
-            
+
             {books.map((book, index) => {
               const length = books.length;
               let offset = (index - activeIndex + length) % length;
               if (offset > length / 2) {
                 offset -= length;
               }
-              
+
               // Map offset to pos (0: Center, 1: Right Imm, 2: Right Far, 4: Left Imm, 3: Left Far)
               let pos = 5; // Default not visible
               if (offset === 0) pos = 0;
@@ -123,9 +123,9 @@ export default function Hero() {
               else if (offset === 2) pos = 2;
               else if (offset === -1) pos = 4;
               else if (offset === -2) pos = 3;
-              
+
               const isVisible = pos < 5;
-              
+
               if (!isVisible) return null;
 
               // Values based on position to match the requested image format (decreasing size)
@@ -213,40 +213,40 @@ export default function Hero() {
                   {/* Grounded Book Container (No floating) */}
                   <div className="w-full h-full preserve-3d">
                     <div className="relative w-full h-full preserve-3d group">
-                      
+
                       {/* Front Cover (Pushed forward to show thickness) */}
-                      <div 
+                      <div
                         className="absolute inset-0 w-full h-full rounded-r-md overflow-hidden bg-white shadow-2xl"
-                        style={{ 
+                        style={{
                           transform: 'translateZ(30px)', // 30px thickness
                           boxShadow: isActive ? '0 30px 60px -12px rgba(0,0,0,0.4), 0 18px 36px -18px rgba(0,0,0,0.5)' : '0 15px 30px -5px rgba(0,0,0,0.3)',
                         }}
                       >
                         <img src={book.image} alt={book.title} className="w-full h-full object-cover" />
-                        
+
                         {/* Glossy Reflection */}
                         <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent mix-blend-overlay" />
-                        
+
                         {/* Spine Joint/Groove for Realistic Hardcover Look */}
                         <div className="absolute top-0 bottom-0 left-[12px] w-[1px] bg-black/30" />
                         <div className="absolute top-0 bottom-0 left-[13px] w-[1px] bg-white/10" />
                       </div>
-                      
+
                       {/* Spine (Left side, connecting front to back) */}
-                      <div 
+                      <div
                         className="absolute top-0 bottom-0 left-0 w-[30px] bg-gradient-to-r from-[#2A2118] to-[#1A1410] origin-left"
-                        style={{ 
+                        style={{
                           transform: 'translateZ(30px) rotateY(-90deg)',
                           borderLeft: '1px solid rgba(255,255,255,0.1)',
                         }}
                       >
                         <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent" />
                       </div>
-                      
+
                       {/* Pages (Right side, connecting front to back) */}
-                      <div 
+                      <div
                         className="absolute top-[4px] bottom-[4px] right-0 w-[30px] bg-[#e8e6df] origin-right"
-                        style={{ 
+                        style={{
                           transform: 'translateZ(30px) rotateY(90deg)',
                           backgroundImage: 'repeating-linear-gradient(90deg, #d8d6cf, #d8d6cf 1px, #e8e6df 1px, #e8e6df 3px)',
                         }}
@@ -254,11 +254,11 @@ export default function Hero() {
                         {/* Shadow from overhang */}
                         <div className="absolute inset-0 bg-gradient-to-l from-black/30 via-transparent to-transparent" />
                       </div>
-                      
+
                       {/* Top Edge (Connecting front to back) */}
-                      <div 
+                      <div
                         className="absolute top-0 left-[4px] right-[4px] h-[30px] bg-[#e8e6df] origin-top"
-                        style={{ 
+                        style={{
                           transform: 'translateZ(30px) rotateX(90deg)',
                           backgroundImage: 'repeating-linear-gradient(0deg, #d8d6cf, #d8d6cf 1px, #e8e6df 1px, #e8e6df 3px)',
                         }}
@@ -266,11 +266,11 @@ export default function Hero() {
                         {/* Shadow from overhang */}
                         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-transparent" />
                       </div>
-                      
 
-                      
+
+
                       {/* Subtle drop shadow beneath each book */}
-                      <div 
+                      <div
                         className="absolute bottom-[-5px] left-0 right-0 h-8 bg-black/30 blur-md rounded-full pointer-events-none"
                         style={{
                           transform: 'translateY(8px)',
@@ -278,7 +278,7 @@ export default function Hero() {
                         }}
                       />
                     </div>
-                    </div>
+                  </div>
                 </motion.div>
               );
             })}
@@ -289,7 +289,7 @@ export default function Hero() {
 
       </div>
 
-      <BookDetailsModal 
+      <BookDetailsModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         book={books[activeIndex]}

@@ -6,13 +6,13 @@
   --font-serif: "Cormorant Garamond", serif;
   --font-display: "Playfair Display", serif;
 
-  --color-espresso: #2A2118; /* Rich Dark Mocha */
-  --color-cream: #F5F2EB; /* Soft Warm Oat / Latte */
-  --color-gold: #C08A53; /* Caramel Gold */
-  --color-beige: #E6DFD3; /* Warm Sand */
-  --color-ink: #1A1410; /* Deepest Espresso */
-  --color-paper: #FCFBF9; /* Crisp Soft White */
-  --color-vintage-red: #A34E4E; /* Muted Brick */
+  --color-espresso: #0A192F; /* Deep Midnight Blue */
+  --color-cream: #F0F4F8; /* Soft Ice Blue */
+  --color-gold: #D62828; /* Premium Ruby Red */
+  --color-beige: #D9E2EC; /* Soft Blue Gray */
+  --color-ink: #020C1B; /* Deep Navy Black */
+  --color-paper: #F8FAFC; /* Crisp Soft White */
+  --color-vintage-red: #C1121F; /* Crimson Red */
   
   --animate-float: float 6s ease-in-out infinite;
   --animate-page-flip: pageFlip 1s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;

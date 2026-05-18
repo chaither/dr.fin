@@ -8,7 +8,7 @@ import { Book } from '../types';
 import { Heart, Star } from 'lucide-react';
 import BookDetailsModal from './BookDetailsModal';
 import { useFavorites } from '../context/FavoritesContext';
-import bgImage from '../Pictures/new3.png';
+import bgImage from '../Pictures/back2.png';
 
 export default function BestSellers() {
   const { t, i18n } = useTranslation();
@@ -41,26 +41,61 @@ export default function BestSellers() {
     <section id="best-sellers" ref={containerRef} className="py-24 px-6 lg:px-20 bg-[#FDFCFA] relative overflow-hidden">
       {/* Background Image with Parallax Effect */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <div 
+        <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ 
+          style={{
             backgroundImage: `url(${bgImage})`,
             backgroundAttachment: 'fixed'
           }}
         />
-
+        {/* Dark Shadow covering the entire background image */}
+        <div className="absolute inset-0 bg-black/60" />
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header */}
-        <div className="text-center mb-20">
-          <span className="text-gold uppercase tracking-[0.3em] text-xs font-bold mb-3 block">Curated Collection</span>
-          <h2 className="text-5xl lg:text-7xl text-[#0A1128] font-display mb-4">Timeless <span className="italic text-gold">Masterpieces</span></h2>
-          <div className="w-24 h-[1px] bg-gold/50 mx-auto mb-6" />
-          <p className="text-[#0A1128]/60 max-w-2xl mx-auto font-serif text-lg italic leading-relaxed">
-            Discover literature that inspires the soul and transcends time.
-          </p>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="text-center mb-20"
+        >
+          <motion.span
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+            className="text-gold uppercase tracking-[0.3em] text-xs font-bold mb-3 block"
+          >
+            {t('bestSellers.curatedCollection', { defaultValue: 'Curated Collection' })}
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+            className="text-5xl lg:text-7xl text-white font-display mb-4 drop-shadow-md"
+          >
+            {t('bestSellers.title')} <span className="italic text-gold">{t('bestSellers.titleAccent')}</span>
+          </motion.h2>
+          <motion.div
+            initial={{ width: 0 }}
+            whileInView={{ width: "6rem" }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.5, duration: 0.6 }}
+            className="h-[1px] bg-gold/50 mx-auto mb-6"
+          />
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.6, duration: 0.5 }}
+            className="text-white/80 max-w-2xl mx-auto font-serif text-lg italic leading-relaxed drop-shadow-sm"
+          >
+            {t('bestSellers.subtitle')}
+          </motion.p>
+        </motion.div>
 
         {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10">
@@ -78,20 +113,19 @@ export default function BestSellers() {
                 <div className="absolute top-0 left-0 bg-gold/90 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider z-20">
                   {book.genre}
                 </div>
-                
+
                 {/* Favorite Icon */}
-                <button 
+                <button
                   onClick={() => toggleFavorite(book.id)}
-                  className={`absolute top-0 right-0 p-2 transition-colors z-20 ${
-                    isFavorite(book.id) ? 'text-gold' : 'text-gold/50 hover:text-gold'
-                  }`}
+                  className={`absolute top-0 right-0 p-2 transition-colors z-20 ${isFavorite(book.id) ? 'text-gold' : 'text-gold/50 hover:text-gold'
+                    }`}
                 >
                   <Heart size={18} fill={isFavorite(book.id) ? 'currentColor' : 'none'} />
                 </button>
 
                 {/* Book Cover Area */}
                 <div className="relative aspect-[3/4] mb-6 overflow-hidden rounded-[16px] bg-white/50 flex items-center justify-center p-4">
-                  <motion.div 
+                  <motion.div
                     className="w-full h-full preserve-3d"
                     whileHover={{ rotateY: -10, scale: 1.05 }}
                     transition={{ type: "spring", stiffness: 200, damping: 20 }}
@@ -100,7 +134,7 @@ export default function BestSellers() {
                     {/* Spine highlight */}
                     <div className="absolute inset-y-0 left-0 w-2 bg-gradient-to-r from-white/30 to-transparent" />
                   </motion.div>
-                  
+
                   {/* Subtle reflection */}
                   <div className="absolute -bottom-4 left-0 right-0 h-4 bg-gradient-to-t from-white/20 to-transparent blur-sm" />
                 </div>
@@ -114,15 +148,15 @@ export default function BestSellers() {
                   ))}
                   <span className="text-[10px] text-[#0A1128]/60 ml-1">{book.rating}</span>
                 </div>
-                
+
                 <h3 className="text-xl font-display text-[#0A1128] group-hover:text-gold transition-colors line-clamp-2 min-h-[56px] flex items-center justify-center">{book.title}</h3>
                 <p className="text-sm font-serif italic text-[#0A1128]/60">by {book.author}</p>
-                
+
                 <div className="pt-4 flex flex-col items-center gap-4">
                   <p className="text-lg font-bold text-[#0A1128]">${book.price.toFixed(2)}</p>
-                  
+
                   {/* Button */}
-                  <button 
+                  <button
                     onClick={() => openModal(book)}
                     className="w-full bg-[#0A1128] text-white rounded-full px-6 py-3 border border-gold/30 hover:bg-gradient-to-r hover:from-gold hover:to-[#C08A53] hover:text-[#0A1128] transition-all duration-500 text-xs font-bold uppercase tracking-widest shadow-[0_5px_15px_rgba(10,17,40,0.1)] hover:shadow-[0_5px_15px_rgba(192,138,83,0.3)]"
                   >
@@ -137,10 +171,10 @@ export default function BestSellers() {
 
       {/* Modal */}
       {selectedBookForModal && (
-        <BookDetailsModal 
-          isOpen={isModalOpen} 
-          onClose={() => setIsModalOpen(false)} 
-          book={selectedBookForModal} 
+        <BookDetailsModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          book={selectedBookForModal}
         />
       )}
     </section>

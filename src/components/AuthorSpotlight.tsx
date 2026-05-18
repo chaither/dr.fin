@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from 'motion/react';
 import { useRef } from 'react';
 import { Quote } from 'lucide-react';
-import authorImg from '../Pictures/prof.png';
+import authorImg from '../Pictures/luke.png';
 import bgImage from '../Pictures/back3.png';
 
 export default function ParallaxStory() {

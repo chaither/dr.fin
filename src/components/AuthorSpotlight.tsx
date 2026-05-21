@@ -5,29 +5,17 @@ import authorImg from '../Pictures/luke.png';
 import bgImage from '../Pictures/back3.png';
 
 export default function ParallaxStory() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
-
-  const imgY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
-  const textScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8]);
-
   return (
-    <section ref={containerRef} className="relative h-[150vh] bg-cream overflow-hidden">
-      <motion.div 
-        style={{ y: imgY }}
-        className="absolute inset-0"
-      >
-        <img 
-          src={bgImage} 
+    <section className="relative min-h-screen w-full flex flex-col items-center justify-center px-6 pt-16 bg-cream overflow-hidden">
+      <div className="absolute inset-0 z-0">
+        <img
+          src={bgImage}
           alt="Library"
           className="w-full h-full object-cover"
         />
-      </motion.div>
+      </div>
 
-      <div className="sticky top-0 h-screen flex flex-col items-center justify-center px-6 pt-16">
+      <div className="relative z-10 flex flex-col items-center justify-center w-full">
         {/* Top Header */}
         <div className="w-full max-w-3xl mb-12 flex flex-col items-center mt-12">
           <div className="flex items-center justify-center w-full">
@@ -45,16 +33,12 @@ export default function ParallaxStory() {
           </div>
         </div>
 
-        <motion.div 
-          style={{ scale: textScale }}
-          className="max-w-3xl flex flex-col items-center"
-        >
+        <div className="max-w-3xl flex flex-col items-center">
           <Quote className="text-gold mb-6 opacity-50" size={48} />
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-display text-cream leading-relaxed mb-12 text-center px-4">
             “After all, <span className="italic text-gold">nothing in the world</span> — not even the most <span className="italic text-gold">supreme act of love</span> — is able to persuade you emotionally to <span className="italic text-gold">turn from your sin</span> (John 3:19). Jesus died to accomplish something <span className="italic text-gold">more significant and certain</span>.”
           </h2>
-          
-        </motion.div>
+        </div>
       </div>
     </section>
   );
@@ -65,10 +49,10 @@ export function AuthorSpotlight() {
     <section id="author-spotlight" className="py-24 px-6 lg:px-20 bg-cream border-t border-espresso/5">
       <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
         <motion.div
-           initial={{ opacity: 0, x: -30 }}
-           whileInView={{ opacity: 1, x: 0 }}
-           viewport={{ once: true }}
-           className="relative"
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          className="relative"
         >
           <div className="aspect-[4/5] relative z-10 rounded-sm overflow-hidden border-[12px] border-paper shadow-2xl">
             <img src={authorImg} alt="Dr. Finnian Ebuehi" className="w-full h-full object-cover" />
@@ -97,7 +81,7 @@ export function AuthorSpotlight() {
               He is the President and Co-founder of Christ's Harvesters Churches Ministries which is involved in strategic in reaches, outreaches/missions through Church Advancements/Planting, Discipleship, Leadership, Educational, and Infrastructural Developments in the most vulnerable nations of the globe.
             </p>
           </div>
-          
+
           <div className="space-y-6">
             <p className="text-sm uppercase tracking-widest font-bold text-espresso/40">Notable Works</p>
             <div className="flex flex-wrap gap-4">

@@ -48,8 +48,6 @@ export default function BestSellers() {
             backgroundAttachment: 'fixed'
           }}
         />
-        {/* Dark Shadow covering the entire background image */}
-        <div className="absolute inset-0 bg-black/60" />
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
@@ -158,7 +156,7 @@ export default function BestSellers() {
                   {/* Button */}
                   <button
                     onClick={() => openModal(book)}
-                    className="w-full bg-[#0A1128] text-white rounded-full px-6 py-3 border border-gold/30 hover:bg-gradient-to-r hover:from-gold hover:to-[#C08A53] hover:text-[#0A1128] transition-all duration-500 text-xs font-bold uppercase tracking-widest shadow-[0_5px_15px_rgba(10,17,40,0.1)] hover:shadow-[0_5px_15px_rgba(192,138,83,0.3)]"
+                    className="w-full bg-[#0A1128] text-white rounded-full px-6 py-3 border border-gold/30 hover:bg-blue-700 hover:text-white transition-all duration-500 text-xs font-bold uppercase tracking-widest shadow-[0_5px_15px_rgba(10,17,40,0.1)] hover:shadow-[0_5px_15px_rgba(59,130,246,0.3)]"
                   >
                     View Details
                   </button>

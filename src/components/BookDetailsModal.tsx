@@ -62,71 +62,13 @@ export default function BookDetailsModal({ isOpen, onClose, book }: BookDetailsM
                 <ChevronRight size={24} />
               </button>
 
-              {/* Massive 3D Book Mockup */}
-              <div className="relative w-64 h-96 perspective-1000 z-10">
-                <motion.div 
-                  className="w-full h-full preserve-3d"
-                  style={{ transformStyle: 'preserve-3d' }}
-                  animate={{ rotateY: [0, 360] }}
-                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                >
-                  {/* Front Cover */}
-                  <div 
-                    className="absolute inset-0 w-full h-full rounded-r-md shadow-2xl"
-                    style={{ 
-                      transform: 'translateZ(15px)',
-                      backgroundImage: `url(${book.image})`, 
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center',
-                      backfaceVisibility: 'hidden'
-                    }}
-                  >
-                    <div className="absolute inset-y-0 left-0 w-3 bg-black/30 blur-[1px]" />
-                    <div className="absolute inset-y-0 left-3 w-1 bg-white/10" />
-                  </div>
-                  
-                  {/* Back Cover */}
-                  <div 
-                    className="absolute inset-0 w-full h-full bg-espresso rounded-l-md flex flex-col items-center justify-center p-6"
-                    style={{ 
-                      transform: 'translateZ(-15px) rotateY(180deg)',
-                      backfaceVisibility: 'hidden'
-                    }}
-                  >
-                    <div className="absolute inset-0 bg-black/30" />
-                    {/* Minimal back cover design */}
-                    <div className="border border-gold/30 w-full h-full flex flex-col items-center justify-center p-4 relative z-10">
-                      <p className="text-gold text-[10px] uppercase tracking-[0.2em] font-bold mb-2">Dr. Finnian Books</p>
-                      <div className="w-8 h-[1px] bg-gold/50 mb-4" />
-                      <p className="text-cream/80 text-xs font-serif text-center italic">{book.title}</p>
-                    </div>
-                  </div>
-
-                  {/* Spine */}
-                  <div 
-                    className="absolute left-0 top-0 bottom-0 w-[30px] bg-espresso"
-                    style={{ 
-                      transform: 'translateX(-15px) rotateY(-90deg)',
-                      backfaceVisibility: 'hidden'
-                    }}
-                  >
-                    <div className="absolute inset-y-0 left-0 w-full bg-gradient-to-r from-black/20 via-white/10 to-transparent" />
-                    <div className="absolute inset-0 flex items-center justify-center text-cream/70 text-[10px] font-bold uppercase tracking-widest whitespace-nowrap" style={{ transform: 'rotateZ(-90deg)' }}>
-                      {book.title.length > 20 ? book.title.substring(0, 20) + '...' : book.title}
-                    </div>
-                  </div>
-                  
-                  {/* Pages */}
-                  <div 
-                    className="absolute right-0 top-[3px] bottom-[3px] w-[30px] bg-beige"
-                    style={{ 
-                      transform: 'translateX(15px) rotateY(90deg)',
-                      background: 'linear-gradient(to right, #f4ecd8, #e6dfd3)'
-                    }}
-                  >
-                    <div className="w-full h-full bg-[linear-gradient(to_bottom,#d1c7bd_1px,transparent_1px)] bg-[size:100%_3px]" />
-                  </div>
-                </motion.div>
+              {/* 2D Book Cover */}
+              <div className="relative w-64 h-96 z-10">
+                <img 
+                  src={book.image} 
+                  alt={book.title} 
+                  className="w-full h-full object-cover rounded-md shadow-2xl"
+                />
                 
                 {/* Marble Podium simulation */}
                 <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-[120%] h-4 bg-gradient-to-r from-gold/20 via-cream/30 to-gold/20 blur-sm rounded-full" />

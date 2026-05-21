@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { AuthProvider } from './context/AuthContext';
 import { FavoritesProvider } from './context/FavoritesContext';
 import { CartProvider } from './context/CartContext';
+import BackgroundMusic from './components/BackgroundMusic';
 
 
 export default function App() {
@@ -77,7 +78,7 @@ export default function App() {
             </main>
 
             <Footer />
-
+            <BackgroundMusic />
           </div>
         </FavoritesProvider>
       </CartProvider>

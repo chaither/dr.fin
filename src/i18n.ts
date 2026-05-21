@@ -29,7 +29,7 @@ const resources = {
         viewAll: 'View All Categories'
       },
       bestSellers: {
-        title: 'Masterpiece',
+        title: 'Masterpiece Books',
         titleAccent: 'Books',
         subtitle: 'Curating the finest literature that has stood the test of time.'
       },

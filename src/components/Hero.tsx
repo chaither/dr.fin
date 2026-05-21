@@ -51,7 +51,7 @@ export default function Hero() {
       className="relative min-h-[90vh] flex items-center overflow-hidden bg-cream px-6 pt-20 pb-32 lg:px-20"
       style={{
         backgroundImage: `url(${backgroundImage})`,
-        backgroundSize: 'cover',
+        backgroundSize: '100% 100%',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat'
       }}
@@ -65,9 +65,6 @@ export default function Hero() {
         style={{ y: y2 }}
         className="absolute bottom-1/4 left-[5%] w-96 h-96 bg-espresso/5 rounded-full blur-3xl -z-10"
       />
-
-      {/* Dark Gradient Overlay for Readability */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent pointer-events-none" />
 
       <div className="grid lg:grid-cols-2 gap-12 items-center w-full max-w-7xl mx-auto z-10">
 
@@ -103,7 +100,7 @@ export default function Hero() {
 
         {/* Right Side: 3D Book Carousel with "Stepping" Format */}
         <motion.div
-          className="relative h-[600px] flex items-center justify-center overflow-visible mt-[360px]"
+          className="relative h-[600px] flex items-center justify-center overflow-visible mt-[200px]"
           style={{ y: imgY, opacity }}
         >
           {/* Carousel Wrapper with Perspective (Centered horizontally, High angle) */}

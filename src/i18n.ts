@@ -30,7 +30,7 @@ const resources = {
       },
       bestSellers: {
         title: 'Masterpiece Books',
-        titleAccent: 'Books',
+        titleAccent: '',
         subtitle: 'Curating the finest literature that has stood the test of time.'
       },
       newsletter: {

@@ -3,7 +3,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { getBooks } from '../constants';
-import backgroundImage from '../Pictures/back1.png';
+import backgroundImage from '../Pictures/bak3.jpg';
 import BookDetailsModal from './BookDetailsModal';
 
 export default function Hero() {

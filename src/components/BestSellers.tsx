@@ -8,7 +8,7 @@ import { Book } from '../types';
 import { Heart, Star } from 'lucide-react';
 import BookDetailsModal from './BookDetailsModal';
 import { useFavorites } from '../context/FavoritesContext';
-import bgImage from '../Pictures/back2.png';
+import bgImage from '../Pictures/backtome.jpg';
 
 export default function BestSellers() {
   const { t, i18n } = useTranslation();

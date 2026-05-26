@@ -3,7 +3,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { getBooks } from '../constants';
-import backgroundImage from '../Pictures/bak3.jpg';
+import backgroundImage from '../Pictures/backtoback.jpg';
 import BookDetailsModal from './BookDetailsModal';
 
 export default function Hero() {
@@ -51,7 +51,7 @@ export default function Hero() {
       className="relative min-h-[90vh] flex items-center overflow-hidden bg-cream px-6 pt-20 pb-32 lg:px-20"
       style={{
         backgroundImage: `url(${backgroundImage})`,
-        backgroundSize: '100% 100%',
+        backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat'
       }}
@@ -75,11 +75,11 @@ export default function Hero() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           style={{ opacity, y: textY }}
         >
-          <h1 className="text-6xl lg:text-7xl font-display leading-[0.9] text-cream mb-8 drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
+          <h1 className="text-8xl lg:text-8xl font-display leading-[0.9] text-white mb-8 drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
             {t('hero.titlePart1')} <br />
-            <span className="italic font-light text-gold">{t('hero.titlePart2')}</span> <br />
+            <span className="italic font-light">{t('hero.titlePart2')}</span> <br />
             {t('hero.titlePart3')} <br />
-            <span className="italic font-light text-gold">{t('hero.titlePart4')}</span>
+            <span className="italic font-light">{t('hero.titlePart4')}</span>
           </h1>
 
           <p className="text-lg text-cream/80 max-w-md mb-10 font-sans">

@@ -12,6 +12,8 @@ import nuvoleFile from '../Pictures/Ludovico Einaudi - Nuvole Bianche.mp4';
 import spiritFile from '../Pictures/Spirit Lead Me - Hillsong United __ Worship Piano & Sheet Music.mp4';
 // @ts-ignore
 import nameFile from '../Pictures/What a Beautiful Name - Hillsong Worship __ Beautiful Piano Cover (Sheet Music).mp4';
+// @ts-ignore
+import hallelujahFile from '../Pictures/Leonard Cohen - Hallelujah (Piano Cover).mp3';
 
 const TRACKS = [
   {
@@ -36,6 +38,14 @@ const TRACKS = [
     artist: 'Hillsong Worship',
     src: nameFile,
     coverColor: 'from-[#3c423d] to-[#1b1f1c]',
+    accentColor: '#D4AF37',
+  },
+  {
+    id: 'hallelujah',
+    title: 'Hallelujah',
+    artist: 'Leonard Cohen',
+    src: hallelujahFile,
+    coverColor: 'from-[#2b3c4e] to-[#141f2b]',
     accentColor: '#D4AF37',
   }
 ];

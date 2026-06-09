@@ -156,8 +156,17 @@ export default function BackgroundMusic() {
     audioRef.current.addEventListener('play', handlePlayEvent);
     audioRef.current.addEventListener('pause', handlePauseEvent);
 
+    const handlePauseBackground = () => {
+      if (audioRef.current && !audioRef.current.paused) {
+        audioRef.current.pause();
+        setIsPlaying(false);
+      }
+    };
+    window.addEventListener('pauseBackgroundMusic', handlePauseBackground);
+
     return () => {
       removeListeners();
+      window.removeEventListener('pauseBackgroundMusic', handlePauseBackground);
       if (audioRef.current) {
         audioRef.current.removeEventListener('play', handlePlayEvent);
         audioRef.current.removeEventListener('pause', handlePauseEvent);

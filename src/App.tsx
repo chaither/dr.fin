@@ -2,6 +2,7 @@ import { motion } from 'motion/react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import BestSellers from './components/BestSellers';
+import FeaturedVideo from './components/FeaturedVideo';
 import ParallaxStory, { AuthorSpotlight } from './components/AuthorSpotlight';
 import Footer from './components/Footer';
 import { useTranslation } from 'react-i18next';
@@ -40,6 +41,7 @@ export default function App() {
               </div>
 
               <BestSellers />
+              <FeaturedVideo />
               <ParallaxStory />
               <AuthorSpotlight />
 
